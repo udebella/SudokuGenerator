@@ -11,9 +11,11 @@
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
+#include <list>
 
 /* Personnal Headers */
 #include "Grid.h"
+#include "SudokuError.h"
 
 /* ----------------------------------------- FONCTIONS ----------------------------------------- */
 /**
@@ -71,6 +73,10 @@ bool Grid::SetValue(int line, int column, int value)
 		}
 		returnValue = true;
 	}
+	else
+	{
+		throw SudokuError("Value not possible",1 ,NOT_CRITICAL);
+	}
 	return returnValue;
 }
 
@@ -78,37 +84,27 @@ bool Grid::SetValue(int line, int column, int value)
  * \function Initialize
  * \details Initialize the grid with random values
  */
+ // TODO Créer la fonction de résolution d'une grille pour continuer !
 void Grid::Initialize()
 {
-	int i, j;
+	int i, j, temp;
 	int randomValue;
 	
 	srand(time(NULL));
 	for (i = 0; i < LENGTH; i++)
 	{
-		for (j = 0; j < LENGTH; j++)
+		for (j = 0; j < LENGHT; j++)
 		{
-			randomValue = rand() % (10-1) + 1;
-			while (SetValue(i, j, randomValue) == false)
-				randomValue = rand() % (10-1) + 1;
-		}
-	}
-	for (i = 3; i < 6; i++)
-	{
-		for (j = 3; j < 6; j++)
-		{
-			randomValue = rand() % (10-1) + 1;
-			while (SetValue(i, j, randomValue) == false)
-				randomValue = rand() % (10-1) + 1;
-		}
-	}
-	for (i = 3; i < 6; i++)
-	{
-		for (j = 0; j < 3; j++)
-		{
-			randomValue = rand() % (10-1) + 1;
-			while (SetValue(i, j, randomValue) == false)
-				randomValue = rand() % (10-1) + 1;
+			const std::list<int>& possibleValue = grid[j / LENGTH][i / LENGTH].getItem(i % LENGTH, j % LENGTH).getPossibleValue();
+			std::list<int>::const_iterator it = possibleValue.begin();
+			randomValue = rand() % possibleValue.size();
+			for(temp = 0; temp < randomValue; temp++)
+			{
+				it++;
+			}
+			randomValue = *it;
+			SetValue(i, j, randomValue);
+			PrintPossibleValue(i, j);
 		}
 	}
 }

@@ -10,7 +10,7 @@ all: $(EXEC)
 sudoku: $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-main.o: Box.h Grid.h
+#main.o: Box.h Grid.h
 
 %.o: %.c
 	$(CC) -o $@ -c $< $(CFLAGS)
