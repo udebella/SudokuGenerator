@@ -3,18 +3,19 @@
  * \brief Contains the main function of the software
  * \author Ubu
  * \version 0.1
- * \date 14/01/2012
+ * \date 11/02/2012
  */
  
 /* ------------------------------------------ INCLUDE ------------------------------------------ */
 /* Standard Libraries */
 #include <cstdlib>
-#include <iostream>
+#include <fstream>
 
 /* Personnal Headers */
 #include "Grid.h"
-#include "Box.h"
+#include "Node.h"
 #include "SudokuError.h"
+#include "main.h"
 
 /* --------------------------------------- MAIN FUNCTION --------------------------------------- */
 /**
@@ -23,27 +24,20 @@
  */
  int main(int argc, char* argv[])
  {
-	try
-	{
- 		Grid gridTest;
- 		gridTest.Initialize();
- 		gridTest.Print();
-	}
-	catch (std::exception const& e)
-	{
-		std::cerr<<"ERREUR : "<<e.what()<<std::endl;
-	}
- 	/*try
+ 	Grid gridTest;
+ 	
+ 	gridTest.Print();
+ 	try
  	{
- 		gridTest.SetValue(0,0,11);
+// 		gridTest.Print(4, 9);
  	}
- 	catch (SudokuError e)
- 	{
- 		std::cerr<<"\nError "<<e.getNumber()<<": "<<e.getDescription()<<std::endl<<std::endl;
- 		if (e.getSeverity() == CRITICAL)
- 			exit(e.getNumber());
- 	}*/
- 	/*gridTest.PrintPossibleValue(0, 7);
- 	gridTest.PrintPossibleValue(1, 7);*/
+ 	catch (std::exception const& e)
+	{
+		std::ofstream cerr(ERROR_OUTPUT, std::ios::app);
+		if (cerr)
+		{
+			cerr << e.what() << std::endl;
+		}
+	}
  	return EXIT_SUCCESS;
  }

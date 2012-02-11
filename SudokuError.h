@@ -26,7 +26,7 @@ typedef enum Severity Severity;
  * \class SudokuError
  * \brief Class which will allow to handle exceptions
  */
-class SudokuError: std::exception
+class SudokuError: public std::exception
 {
 	private:
 		std::string description; /*!< Description of the problem */
@@ -47,7 +47,7 @@ class SudokuError: std::exception
 		Severity getSeverity() const throw() {return severity;}
 		
 		// \brief Reimplementation of the standard function what()
-		virtual const char* what() const throw() {return description.c_str();}
+		virtual const char* what() const throw();
 		
 		// \brief Destructor of the class
 		virtual ~SudokuError() throw() {}

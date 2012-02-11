@@ -10,15 +10,13 @@ all: $(EXEC)
 sudoku: $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-#main.o: Box.h Grid.h
-
 %.o: %.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
-.PHONY: clean mrproper
+.PHONY: clean distclean
 
 clean:
 	rm *.o
 
-mrproper: clean
+distclean: clean
 	rm $(EXEC)
