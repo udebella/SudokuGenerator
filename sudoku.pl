@@ -16,6 +16,9 @@ valide_ligne(LIGNE) :-
 test('une ligne contenant 10 est invalide') :-
     not(valide_ligne([10, 1, 2, 3, 4, 5, 6, 7, 8])).
 
+test('une ligne contenant 0 est invalide') :-
+    not(valide_ligne([0, 1, 2, 3, 4, 5, 6, 7, 8])).
+
 test('lignes contiennent 9 valeurs') :-
     valide_ligne([1, 2, 3, 4, 5, 6, 7, 8, 9]).
 
