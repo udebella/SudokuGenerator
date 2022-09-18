@@ -1,6 +1,38 @@
 :- use_module(library(clpfd)).
 
+% Generate grids
+% grid(X), sudoku(X), maplist(label, X), maplist(portray_clause, X).
+grid([
+    [_,_,_, _,5,4, 3,_,1],
+    [2,_,_, _,_,_, _,_,9],
+    [3,5,_, _,2,_, _,_,_],
+
+    [_,_,_, _,_,7, _,9,4],
+    [_,_,_, _,_,_, 1,_,_],
+    [7,_,5, _,6,_, _,_,_],
+
+    [_,_,_, _,_,_, _,_,_],
+    [4,7,_, _,_,9, _,_,8],
+    [8,6,_, 7,_,_, _,_,_]
+]).
+test([
+    [9,8,7, 6,5,4, 3,2,1],
+    [2,4,6, 1,7,3, 9,8,5],
+    [3,5,1, 9,2,8, 7,4,6],
+    
+    [1,2,8, 5,3,7, 6,9,4],
+    [6,3,4, 8,9,2, 1,5,7],
+    [7,9,5, 4,6,1, 8,3,2],
+    
+    [5,1,9, 2,8,6, 4,7,3],
+    [4,7,2, 3,1,9, 5,6,8],
+    [8,6,3, 7,4,5, 2,1,9]
+]).
+
 sudoku(LINES):-
+    length(LINES, 9),
+    length(COLUMNS, 9),
+    length(BLOCKS, 9),
     read_columns_from_grid(LINES, COLUMNS),
     read_blocks_from_grid(LINES, BLOCKS),
     maplist(sudoku_rules, LINES),
