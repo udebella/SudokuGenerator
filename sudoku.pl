@@ -1,13 +1,8 @@
 :- use_module(library(clpfd)).
 
-custom_distinct([]).
-custom_distinct([X | REST]):-
-    not(member(X, REST)),
-    custom_distinct(REST).
-
 valide_ligne(LIGNE) :-
     length(LIGNE, 9), LIGNE ins 1..9,
-    custom_distinct(LIGNE).
+    all_distinct(LIGNE).
      
 
 % swipl -g run_tests -t halt sudoku.pl
