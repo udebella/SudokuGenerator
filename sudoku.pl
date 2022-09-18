@@ -1,8 +1,9 @@
 :- use_module(library(clpfd)).
 
-valide_ligne(LIGNE) :-
-    length(LIGNE, 9), LIGNE ins 1..9,
-    all_distinct(LIGNE).
+sudoku_rules(LCB) :-
+    length(LCB, 9), 
+    LCB ins 1..9,
+    all_distinct(LCB).
 
 read_columns_from_grid(ROWS, COLUMNS):-
     transpose(ROWS, COLUMNS).
@@ -35,16 +36,16 @@ valid_grid([
 :- begin_tests(sudoku).
 
 test('une ligne contenant 10 est invalide') :-
-    not(valide_ligne([10, 1, 2, 3, 4, 5, 6, 7, 8])).
+    not(sudoku_rules([10, 1, 2, 3, 4, 5, 6, 7, 8])).
 
 test('une ligne contenant 0 est invalide') :-
-    not(valide_ligne([0, 1, 2, 3, 4, 5, 6, 7, 8])).
+    not(sudoku_rules([0, 1, 2, 3, 4, 5, 6, 7, 8])).
 
 test('une ligne contenant deux fois la même valeur est invalide') :-
-    not(valide_ligne([1, 1, 2, 3, 4, 5, 6, 7, 8])).
+    not(sudoku_rules([1, 1, 2, 3, 4, 5, 6, 7, 8])).
 
 test('lignes contiennent 9 valeurs') :-
-    valide_ligne([1, 2, 3, 4, 5, 6, 7, 8, 9]).
+    sudoku_rules([1, 2, 3, 4, 5, 6, 7, 8, 9]).
 
 
 test('can read columns from 1 length grids') :-
