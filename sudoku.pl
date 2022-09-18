@@ -4,7 +4,8 @@ valide_ligne(LIGNE) :-
     length(LIGNE, 9), LIGNE ins 1..9,
     all_distinct(LIGNE).
 
-read_columns_from_grid(X, X).
+read_columns_from_grid(ROWS, COLUMNS):-
+    transpose(ROWS, COLUMNS).
      
 
 % swipl -g run_tests -t halt sudoku.pl
@@ -25,5 +26,14 @@ test('lignes contiennent 9 valeurs') :-
 
 test('can read columns from 1 length grids') :-
     read_columns_from_grid([[1]], [[1]]).
+
+test('can read columns from 2 length grids') :-
+    read_columns_from_grid([
+        [1, 2],
+        [3, 4]
+    ], [
+        [1, 3],
+        [2, 4]
+    ]).
 
 :- end_tests(sudoku).
