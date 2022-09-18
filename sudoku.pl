@@ -5,14 +5,8 @@ custom_distinct([X | REST]):-
     not(member(X, REST)),
     custom_distinct(REST).
 
-right_range([]).
-right_range([X | REST]):-
-    X in 1..9,
-    right_range(REST).
-
 valide_ligne(LIGNE) :-
-    length(LIGNE, 9),
-    right_range(LIGNE),
+    length(LIGNE, 9), LIGNE ins 1..9,
     custom_distinct(LIGNE).
      
 
