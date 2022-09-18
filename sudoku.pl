@@ -1,5 +1,10 @@
 :- use_module(library(clpfd)).
 
+custom_distinct([]).
+custom_distinct([X | REST]):-
+    not(member(X, REST)),
+    custom_distinct(REST).
+
 right_range([]).
 right_range([X | REST]):-
     X in 1..9,
@@ -7,7 +12,8 @@ right_range([X | REST]):-
 
 valide_ligne(LIGNE) :-
     length(LIGNE, 9),
-    right_range(LIGNE).
+    right_range(LIGNE),
+    custom_distinct(LIGNE).
      
 
 % swipl -g run_tests -t halt sudoku.pl
@@ -18,6 +24,9 @@ test('une ligne contenant 10 est invalide') :-
 
 test('une ligne contenant 0 est invalide') :-
     not(valide_ligne([0, 1, 2, 3, 4, 5, 6, 7, 8])).
+
+test('une ligne contenant deux fois la même valeur est invalide') :-
+    not(valide_ligne([1, 1, 2, 3, 4, 5, 6, 7, 8])).
 
 test('lignes contiennent 9 valeurs') :-
     valide_ligne([1, 2, 3, 4, 5, 6, 7, 8, 9]).
