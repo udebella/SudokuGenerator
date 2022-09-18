@@ -1,5 +1,12 @@
 :- use_module(library(clpfd)).
 
+sudoku(LINES):-
+    read_columns_from_grid(LINES, COLUMNS),
+    read_blocks_from_grid(LINES, BLOCKS),
+    maplist(sudoku_rules, LINES),
+    maplist(sudoku_rules, COLUMNS),
+    maplist(sudoku_rules, BLOCKS).
+
 sudoku_rules(LCB) :-
     length(LCB, 9), 
     LCB ins 1..9,
@@ -75,5 +82,10 @@ test('can read blocks from grid') :-
         [2,8,6, 3,1,9, 7,4,5],
         [4,7,3, 5,6,8, 2,1,9]
     ]).
+
+
+test('can check that a grid is valid') :-
+    valid_grid(X),
+    sudoku(X).
 
 :- end_tests(sudoku).
